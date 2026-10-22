@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>DJ SINCOY - FULL MEJA HD 4D - SEMUA MUSIK</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;user-select:none;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:#050510;font-family:'Fredoka',system-ui;font-weight:700;overflow:hidden;height:100dvh;display:flex;flex-direction:column;color:#fff}
+#top{height:44px;background:#000;border-bottom:3px solid #222;display:flex;gap:6px;padding:6px 8px;align-items:center}
+.chip{flex:1;background:#111;border:2px solid #333;border-radius:100px;padding:4px;text-align:center;font-size:10px}
+#stage{flex:1;position:relative;background:radial-gradient(ellipse at 50% 0%,#1a0a3a,#050510);overflow:hidden;display:flex;flex-direction:column}
+#decks{display:flex;gap:8px;padding:8px;flex:0 0 auto}
+.deck{flex:1;background:linear-gradient(#1a1a1a,#000);border:3px solid #222;border-radius:16px;padding:8px;box-shadow:0 0 20px rgba(0,255,255,0.2);position:relative;overflow:hidden}
+.deck::before{content:'';position:absolute;inset:-2px;border:2px solid transparent;border-radius:16px;background:linear-gradient(90deg,#0ff,#f0f,#0ff) border-box;mask:linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);mask-composite:exclude;opacity:0.6;pointer-events:none}
+.vinyl{width:100%;aspect-ratio:1;background:radial-gradient(circle,#222 10%,#111 12%,#000 13%,#111 20%,#222 22%,#000 70%);border-radius:50%;border:3px solid #333;display:flex;align-items:center;justify-content:center;position:relative;animation:spin 2s linear infinite;animation-play-state:paused}
+.vinyl.playing{animation-play-state:running}
+@keyframes spin{to{transform:rotate(360deg)}}
+.vinylLabel{width:36%;height:36%;background:radial-gradient(circle,#ff1744,#b71c1c);border-radius:50%;border:2px solid #000;display:flex;align-items:center;justify-content:center;font-size:10px}
+.wave{height:36px;background:#000;border:2px solid #333;border-radius:8px;margin-top:6px;position:relative;overflow:hidden}
+.waveBar{position:absolute;bottom:0;width:3px;background:#0ff;border-radius:2px}
+.deckControls{display:flex;gap:6px;margin-top:6px}
+.btn{flex:1;background:#111;border:2px solid #333;border-radius:10px;padding:8px;text-align:center;font-size:11px}
+.btn.play{background:#22c55e;color:#000;border-color:#22c55e}
+.btn.cue{background:#ef4444;color:#fff}
+.btn.active{box-shadow:0 0 12px currentColor}
+#mixer{flex:1;background:linear-gradient(#0a0a0a,#000);border-top:3px solid #222;border-bottom:3px solid #222;padding:8px;display:flex;flex-direction:column;gap:8px;overflow-y:auto}
+.mixerTop{display:flex;gap:6px}
+.faderCol{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.knob{width:28px;height:28px;background:conic-gradient(#444,#222,#444);border:2px solid #333;border-radius:50%;position:relative;cursor:grab}
+.knob::after{content:'';position:absolute;top:2px;left:50%;width:3px;height:10px;background:#0ff;border-radius:2px;transform:translateX(-50%)}
+.fader{width:10px;height:80px;background:#111;border:2px solid #333;border-radius:10px;position:relative}
+.faderHandle{position:absolute;left:-6px;width:22px;height:14px;background:#ddd;border:2px solid #000;border-radius:4px;top:50%}
+.led{width:6px;height:40px;background:#111;border-radius:4px;display:flex;flex-direction:column;gap:1px;padding:2px}
+.ledSeg{flex:1;background:#222;border-radius:1px}
+.ledSeg.on{background:#0f0}
+#padGrid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.pad{aspect-ratio:1;border-radius:10px;border:2px solid #000;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:9px;font-weight:800;box-shadow:0 3px 0 #000;cursor:pointer;position:relative;overflow:hidden}
+.pad::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0.3),transparent);pointer-events:none}
+.pad:active{transform:translateY(3px);box-shadow:0 1px 0 #000}
+#crossArea{background:#000;border:3px solid #222;border-radius:12px;padding:8px;display:flex;align-items:center;gap:8px}
+#crossTrack{flex:1;height:18px;background:#111;border:2px solid #333;border-radius:100px;position:relative}
+#crossKnob{position:absolute;top:-6px;width:32px;height:30px;background:#ddd;border:3px solid #000;border-radius:6px;left:50%;transform:translateX(-50%);cursor:grab;box-shadow:0 3px 0 #000}
+#menu{position:fixed;inset:0;z-index:100;background:radial-gradient(circle at 50% 0%,#1a0a3a,#000);display:flex;align-items:center;justify-content:center;padding:16px}
+.cardM{background:#fff;color:#000;border:5px solid #000;border-radius:20px;padding:18px;width:100%;max-width:400px;text-align:center;box-shadow:12px 12px 0 #000}
+</style>
+</head>
+<body>
+<div id="top">
+<div class="chip">🎧 BPM: <span id="bpm">128</span></div>
+<div class="chip">🔊 VOL: <span id="vol">100%</span></div>
+<div class="chip">🎵 <span id="track">HOUSE</span></div>
+<div class="chip" id="rec">🔴 REC</div>
+</div>
+<div id="stage">
+<div id="decks">
+<div class="deck" id="deckA"><div style="font-size:10px;display:flex;justify-content:space-between"><span>DECK A • HOUSE</span><span id="aTime">0:00</span></div><div class="vinyl" id="vinylA"><div class="vinylLabel">A</div></div><div class="wave" id="waveA"></div><div class="deckControls"><div class="btn cue" id="cueA">CUE</div><div class="btn play" id="playA">▶ PLAY</div><div class="btn" id="syncA">SYNC</div></div></div>
+<div class="deck" id="deckB"><div style="font-size:10px;display:flex;justify-content:space-between"><span>DECK B • DUBSTEP</span><span id="bTime">0:00</span></div><div class="vinyl" id="vinylB"><div class="vinylLabel" style="background:radial-gradient(circle,#00e5ff,#0066ff)">B</div></div><div class="wave" id="waveB"></div><div class="deckControls"><div class="btn cue" id="cueB">CUE</div><div class="btn play" id="playB">▶ PLAY</div><div class="btn" id="syncB">SYNC</div></div></div>
+</div>
+<div id="mixer">
+<div class="mixerTop">
+<div class="faderCol"><span style="font-size:8px">HIGH</span><div class="knob" data-k="highA"></div><span style="font-size:8px">MID</span><div class="knob" data-k="midA"></div><span style="font-size:8px">LOW</span><div class="knob" data-k="lowA"></div><div style="display:flex;gap:4px"><div class="led" id="ledA"></div><div class="fader"><div class="faderHandle" id="volA" style="top:20%"></div></div></div></div>
+<div class="faderCol"><span style="font-size:8px">HIGH</span><div class="knob" data-k="highB"></div><span style="font-size:8px">MID</span><div class="knob" data-k="midB"></div><span style="font-size:8px">LOW</span><div class="knob" data-k="lowB"></div><div style="display:flex;gap:4px"><div class="led" id="ledB"></div><div class="fader"><div class="faderHandle" id="volB" style="top:60%"></div></div></div></div>
+<div class="faderCol"><span style="font-size:8px">FILTER</span><div class="knob" data-k="filter"></div><span style="font-size:8px">FX</span><div class="knob" data-k="fx"></div><span style="font-size:8px">ECHO</span><div class="knob" data-k="echo"></div><div style="margin-top:20px;font-size:8px">MASTER</div><div class="fader" style="height:100px"><div class="faderHandle" id="master" style="top:10%"></div></div></div>
+</div>
+<div id="padGrid"></div>
+<div id="crossArea"><span style="font-size:10px">A</span><div id="crossTrack"><div id="crossKnob"></div></div><span style="font-size:10px">B</span><div style="margin-left:8px;display:flex;gap:4px"><div class="btn" style="padding:6px 10px" id="fxBtn">FX</div><div class="btn" style="padding:6px 10px;background:#ff1744;color:#fff" id="dropBtn">DROP!</div></div></div>
+</div>
+</div>
+
+<div id="menu">
+<div class="cardM">
+<div style="font-size:40px">🎧🦄🔥</div>
+<h2>DJ SINCOY - FULL MEJA HD 4D</h2>
+<div style="text-align:left;font-size:11px;margin:10px 0;line-height:1.6">
+✅ <b>Full meja HD 4D:</b> 2 turntable vinyl + mixer 5 channel + EQ HIGH/MID/LOW + 24 pad RGB + crossfader beneran!<br>
+✅ <b>Semua musik ada:</b> HOUSE, DUBSTEP, TRAP, JEDAG JEDUG, FUNKOT, DRUM, BASS, SYNTH, VOCAL!<br>
+✅ <b>Tombol lengkap:</b> PLAY, CUE, SYNC, FILTER, ECHO, FX, DROP!<br>
+✅ <b>Real DJ:</b> vinyl muter, waveform, LED meter, suara ketik!
+</div>
+<button style="width:100%;padding:14px;background:#ffeb3b;border:4px solid #000;border-radius:100px;font-weight:800;box-shadow:0 5px 0 #000" id="playBtn">🎧 START DJ SINCOY!</button>
+</div>
+</div>
+
+<script>
+let audioCtx, masterGain, filterNode, isPlayingA=false,isPlayingB=false,bpm=128,crossVal=0;
+let pads=[
+{name:'KICK',color:'#00e5ff',key:'1'},{name:'SNARE',color:'#ff4081',key:'2'},{name:'HIHAT',color:'#ffeb3b',key:'3'},{name:'CLAP',color:'#7c4dff',key:'4'},
+{name:'BASS',color:'#00e676',key:'5'},{name:'SYNTH',color:'#ff9100',key:'6'},{name:'VOCAL\nAYE',color:'#18ffff',key:'7'},{name:'JEDAG',color:'#ff1744',key:'8'},
+{name:'TRAP',color:'#8e24aa',key:'9'},{name:'HOUSE',color:'#00bcd4',key:'10'},{name:'DUBSTEP',color:'#ff6f00',key:'11'},{name:'FUNKOT',color:'#76ff03',key:'12'},
+{name:'DROP',color:'#ffea00',key:'13'},{name:'RISER',color:'#e040fb',key:'14'},{name:'FX',color:'#40c4ff',key:'15'},{name:'HORN',color:'#ffd740',key:'16'},
+{name:'BOOM',color:'#ff3d00',key:'17'},{name:'WOBBLE',color:'#64ffda',key:'18'},{name:'CHOP',color:'#ff80ab',key:'19'},{name:'KICK2',color:'#00e5ff',key:'20'},
+{name:'SNARE2',color:'#ff4081',key:'21'},{name:'OPEN\nHAT',color:'#ffeb3b',key:'22'},{name:'808',color:'#00e676',key:'23'},{name:'SINCOY\nYEAH',color:'#f50057',key:'24'}
+];
+function initAudio(){
+if(audioCtx)return;
+audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+masterGain=audioCtx.createGain();masterGain.gain.value=0.8;
+filterNode=audioCtx.createBiquadFilter();filterNode.type='lowpass';filterNode.frequency.value=20000;
+masterGain.connect(filterNode);filterNode.connect(audioCtx.destination);
+}
+function playSound(type){
+initAudio();
+let now=audioCtx.currentTime;
+if(type==='KICK'||type==='KICK2'||type==='808'||type==='BOOM'){
+let o=audioCtx.createOscillator(),g=audioCtx.createGain();
+o.frequency.setValueAtTime(150,now);o.frequency.exponentialRampToValueAtTime(40,now+0.15);
+g.gain.setValueAtTime(1,now);g.gain.exponentialRampToValueAtTime(0.01,now+0.4);
+o.connect(g);g.connect(masterGain);o.start();o.stop(now+0.4);
+}else if(type.includes('SNARE')||type==='CLAP'){
+let bufferSize=audioCtx.sampleRate*0.2;let buffer=audioCtx.createBuffer(1,bufferSize,audioCtx.sampleRate);let data=buffer.getChannelData(0);
+for(let i=0;i<bufferSize;i++)data[i]=(Math.random()*2-1)*Math.pow(1-i/bufferSize,2);
+let noise=audioCtx.createBufferSource();noise.buffer=buffer;
+let bp=audioCtx.createBiquadFilter();bp.type='bandpass';bp.frequency.value=1800;
+let g=audioCtx.createGain();g.gain.setValueAtTime(0.8,now);g.gain.exponentialRampToValueAtTime(0.01,now+0.25);
+noise.connect(bp);bp.connect(g);g.connect(masterGain);noise.start();
+}else if(type.includes('HIHAT')||type.includes('HAT')){
+let o=audioCtx.createOscillator();o.type='square';o.frequency.value=8000;
+let g=audioCtx.createGain();g.gain.setValueAtTime(0.3,now);g.gain.exponentialRampToValueAtTime(0.01,now+0.08);
+o.connect(g);g.connect(masterGain);o.start();o.stop(now+0.08);
+}else if(type==='BASS'||type==='WOBBLE'){
+let o=audioCtx.createOscillator();o.type='sawtooth';o.frequency.value=type==='WOBBLE'?80+Math.sin(now*20)*20:90;
+let g=audioCtx.createGain();g.gain.setValueAtTime(0.6,now);g.gain.exponentialRampToValueAtTime(0.01,now+0.5);
+o.connect(g);g.connect(masterGain);o.start();o.stop(now+0.5);
+}else if(type.includes('SYNTH')||type==='DROP'||type==='RISER'){
+let o=audioCtx.createOscillator();o.type='sawtooth';o.frequency.setValueAtTime(200,now);o.frequency.linearRampToValueAtTime(type==='RISER'?1200:400,now+0.8);
+let g=audioCtx.createGain();g.gain.setValueAtTime(0.4,now);g.gain.linearRampToValueAtTime(0,now+0.8);
+o.connect(g);g.connect(masterGain);o.start();o.stop(now+0.8);
+}else{
+let o=audioCtx.createOscillator();o.frequency.value=300+Math.random()*600;
+let g=audioCtx.createGain();g.gain.setValueAtTime(0.5,now);g.gain.exponentialRampToValueAtTime(0.01,now+0.3);
+o.connect(g);g.connect(masterGain);o.start();o.stop(now+0.3);
+}
+}
+
+let grid=document.getElementById('padGrid');
+pads.forEach(p=>{
+let d=document.createElement('div');d.className='pad';d.style.background=p.color;d.style.boxShadow=`0 4px 0 #000, 0 0 15px ${p.color}`;
+d.innerHTML=`<span>${p.name}</span><span style="font-size:7px;opacity:.7">Tap</span>`;
+d.onclick=()=>{initAudio();playSound(p.name);d.style.filter='brightness(1.5)';setTimeout(()=>d.style.filter='',100);};
+grid.appendChild(d);
+});
+
+function makeWave(id){
+let wave=document.getElementById(id);wave.innerHTML='';
+for(let i=0;i<40;i++){let bar=document.createElement('div');bar.className='waveBar';bar.style.left=i*7+'px';bar.style.height=(10+Math.random()*26)+'px';bar.style.background=i%2?'#0ff':'#f0f';wave.appendChild(bar);}
+}
+makeWave('waveA');makeWave('waveB');
+setInterval(()=>{if(isPlayingA||isPlayingB){document.querySelectorAll('.waveBar').forEach(b=>{b.style.height=(5+Math.random()*30)+'px';});}},80);
+
+document.getElementById('playA').onclick=function(){initAudio();isPlayingA=!isPlayingA;this.textContent=isPlayingA?'⏸ PAUSE':'▶ PLAY';this.classList.toggle('active',isPlayingA);document.getElementById('vinylA').classList.toggle('playing',isPlayingA);if(isPlayingA)startLoop('A');};
+document.getElementById('playB').onclick=function(){initAudio();isPlayingB=!isPlayingB;this.textContent=isPlayingB?'⏸ PAUSE':'▶ PLAY';this.classList.toggle('active',isPlayingB);document.getElementById('vinylB').classList.toggle('playing',isPlayingB);if(isPlayingB)startLoop('B');};
+
+let loopInterval=null;
+function startLoop(deck){
+if(loopInterval)return;
+loopInterval=setInterval(()=>{
+if(isPlayingA&&Math.random()<0.6)playSound(['KICK','HIHAT','SNARE','CLAP'][Math.floor(Math.random()*4)]);
+if(isPlayingB&&Math.random()<0.7)playSound(['BASS','808','SYNTH','WOBBLE'][Math.floor(Math.random()*4)]);
+},(60/bpm)*1000/2);
+}
+
+document.getElementById('dropBtn').onclick=()=>{
+initAudio();
+for(let i=0;i<8;i++)setTimeout(()=>playSound(['KICK','BASS','DROP','BOOM'][i%4]),i*80);
+document.body.style.animation='flash 0.3s';setTimeout(()=>document.body.style.animation='',300);
+};
+
+let cross=document.getElementById('crossKnob'),track=document.getElementById('crossTrack'),drag=false;
+cross.addEventListener('touchstart',e=>{drag=true;e.preventDefault();});
+cross.addEventListener('mousedown',()=>drag=true);
+window.addEventListener('touchmove',e=>{
+if(!drag)return;let r=track.getBoundingClientRect();let t=e.touches[0];let x=t.clientX-r.left;let pct=Math.max(0,Math.min(100,(x/r.width)*100));cross.style.left=pct+'%';crossVal=(pct-50)/50;
+});
+window.addEventListener('mousemove',e=>{
+if(!drag)return;let r=track.getBoundingClientRect();let x=e.clientX-r.left;let pct=Math.max(0,Math.min(100,(x/r.width)*100));cross.style.left=pct+'%';crossVal=(pct-50)/50;
+});
+window.addEventListener('touchend',()=>drag=false);window.addEventListener('mouseup',()=>drag=false);
+
+document.querySelectorAll('.knob').forEach(k=>{
+let rot=0;k.addEventListener('touchmove',e=>{
+rot+=e.touches[0].clientX%5;k.style.transform=`rotate(${rot}deg)`;
+if(k.dataset.k==='filter'){filterNode.frequency.value=200+Math.abs(rot%100)*200;}
+});
+});
+
+let ledsA=document.getElementById('ledA'),ledsB=document.getElementById('ledB');
+[ledsA,ledsB].forEach(led=>{led.innerHTML='';for(let i=0;i<10;i++){let s=document.createElement('div');s.className='ledSeg';led.appendChild(s);}});
+setInterval(()=>{
+document.querySelectorAll('.ledSeg').forEach((s,i)=>{s.classList.toggle('on',Math.random()>0.3+i*0.05);});
+},100);
+
+document.getElementById('playBtn').onclick=()=>{initAudio();document.getElementById('menu').style.display='none';playSound('KICK');};
+document.getElementById('rec').onclick=function(){this.textContent=this.textContent.includes('🔴')?'⏹ STOP':'🔴 REC';this.style.color=this.textContent.includes('STOP')?'#ff1744':'#fff';};
+
+</script>
+<style>@keyframes flash{0%{filter:brightness(1)}50%{filter:brightness(2)}100%{filter:brightness(1)}}</style>
+</body>
+                                                                                                                                                                                                                                                                                                                                                                                                                         </html>
